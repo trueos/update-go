@@ -28,7 +28,7 @@ Only **one** of these arguments may be used at a time.
 - **-change-train TRAIN_NAME**
    - Reconfigure the package repository files to point to the designated TRAIN_NAME.
    - ***WARNING*** This will remove *all* package repository configuration files on the system and create a single "/etc/pkg/Train.conf" file containing the configuration for the desired package train.
-   
+
 ## Secondary/Optional Arguments
 There are a number of secondary/optional flags that can be used for additional functionality:
 
@@ -41,7 +41,7 @@ sysup allows for the possibility of offline updates via an image file containing
 - **-updatekey KEY_FILE**
    - When doing offline updates, use the "KEY_FILE" as the public SSL key to verify of the integrity of the IMG and packages.
    - Default value: none. Will not verify SSL signature of the packages.
-   
+
 ### Additional Update Options
 These arguments are add-ons for the "-update" argument and are typically not needed for standard use
 - **-disablebootstrap**
@@ -57,7 +57,7 @@ These arguments are add-ons for the "-update" argument and are typically not nee
 - **-stage2**
    - Start stage2 of an update (installing non-kernel package updates)
    - **WARNING** This is a debugging option that is only used internally. This should *not* be run manually by the user.
-   
+
 ###  Daemonizing the updater
 - **-websocket**
    - Startup a websocket service for direct API access and events
@@ -65,15 +65,15 @@ These arguments are add-ons for the "-update" argument and are typically not nee
 - **-websocket-addr ADDRESS**
    - Websocket service address (IP:portnumber). This is a general option for all primary arguments to allow it to talk to a currently-running websocket service
    - Default value: "127.0.0.1:8134"
-   
+
 # TRAINS
 sysup adds the ability to define package "trains". These are basically parallel package repos that might be running at different update intervals or different package configurations (as determined by the package repo maintainer(s)). Trains are considered an optional feature and are not required for single-repository update functionality.
 
 ## Local Train Configuration
 - Sysup Config File: "/usr/local/etc/sysup.json"
- 
+
 This config file needs to be installed on every local system and provides the information necessary to retrieve information about available update trains.
- 
+
 ### Example Config File:
 ```
 {
@@ -132,3 +132,4 @@ This is the file publicly provided by some package repository manager or distrib
 - "pkgkey" (array of strings) : Contents of the public key file used to verify packages from this repository (one line per element in the array).
 - "tags" (array of strings) : List of search tags which may be used to help the user pick a train.
 - "version" (number) : Artificial version number for the train. This is used to prevent people from moving from a higher-versioned train to a lower-versioned train. If there are no upgrade/downgrade limitations between trains, just set all the trains to the same version number.
+test
