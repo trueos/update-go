@@ -17,6 +17,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/trueos/sysup/client"
 	"github.com/trueos/sysup/defines"
+	"github.com/trueos/sysup/logger"
 	"github.com/trueos/sysup/pkg"
 	"github.com/trueos/sysup/trains"
 	"github.com/trueos/sysup/update"
@@ -239,6 +240,7 @@ func main() {
 	if defines.WebsocketFlag {
 		go startws(done)
 		log.Println("Listening on", defines.WebsocketAddr)
+		logger.LogToFile("Listening on " + defines.WebsocketAddr)
 		<-done
 		os.Exit(0)
 	}
