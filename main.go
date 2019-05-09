@@ -53,13 +53,12 @@ func startws(done chan bool) {
 	log.SetFlags(0)
 	http.HandleFunc("/ws", readws)
 
-	//Make this non-fatal so it can be run every time (will fail *instantly*
-	//if a websocket is already running on that address)
-	http.ListenAndServe(defines.WebsocketAddr, nil)
+	if err := http.ListenAndServe(defines.WebsocketAddr, nil) ; err != nil {
+        logger.LogToFile("ERROR: " + err.Error())
+        log.Fatal(err)
+	}
 
 	done <- true
-
-	//log.Fatal(http.ListenAndServe(*addr, nil))
 }
 
 func connectws(done chan bool) {
