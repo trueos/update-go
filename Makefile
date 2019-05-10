@@ -12,11 +12,13 @@ BINARY_NAME=sysup
 GITHUB=github.com/
 
 # We will add test later
-all: build
+all: build install
 dev : format install-deps lint build
 
 build:
 	$(GOBUILD) -o $(BINARY_NAME) -v
+install:
+	$(GOCMD) install
 format:
 	$(GOCMD) fmt ./...
 install-deps:
