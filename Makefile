@@ -1,5 +1,5 @@
 # Go parameters
-export PATH := ${PATH}${GOPATH}
+GOPATHVARS!=	echo ${GOPATH} | sed 's|:| |g'
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
@@ -11,6 +11,10 @@ GOGET=$(GOCMD) get
 MISSPELL=misspell
 BINARY_NAME=sysup
 GITHUB=github.com/
+
+.for gpath in ${GOPATHVARS}
+PATHVAR:=	${PATHVAR}${gpath}/bin:
+.endfor
 
 # We will add test later
 all: build install
@@ -29,10 +33,10 @@ install-deps:
 		$(GITHUB)client9/misspell
 lint:
 	$(GOCMD) vet ./...
-	$(GOCYCLO) -over 15 pkg logger trains update utils ws defines client
-	$(GOLINT) ./...
-	$(INEFF) ./
-	$(MISSPELL) -w ./
+	env PATH=${PATHVAR} $(GOCYCLO) -over 15 pkg logger trains update utils ws defines client
+	env PATH=${PATHVAR} $(GOLINT) ./...
+	env PATH=${PATHVAR} $(INEFF) ./
+	env PATH=${PATHVAR} $(MISSPELL) -w ./
 test:
 	$(GOTEST) -v ./...
 clean:
