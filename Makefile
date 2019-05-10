@@ -12,6 +12,7 @@ MISSPELL=misspell
 BINARY_NAME=sysup
 GITHUB=github.com/
 
+PATHVAR:=	${PATH}:
 .for gpath in ${GOPATHVARS}
 PATHVAR:=	${PATHVAR}${gpath}/bin:
 .endfor
