@@ -9,14 +9,21 @@ INEFF=ineffassign
 GOGET=$(GOCMD) get
 MISSPELL=misspell
 BINARY_NAME=sysup
+GITHUB=github.com/
 
 # We will add test later
-all: format lint build
+all: build
+dev : format install-deps lint build
 
 build:
 	$(GOBUILD) -o $(BINARY_NAME) -v
 format:
 	$(GOCMD) fmt ./...
+install-deps:
+	go get $(GITHUB)fzipp/gocyclo \
+		golang.org/x/lint/golint \
+		$(GITHUB)gordonklaus/ineffassign \
+		$(GITHUB)client9/misspell
 lint:
 	$(GOCMD) vet ./...
 	$(GOCYCLO) -over 15 pkg logger trains update utils ws defines client
