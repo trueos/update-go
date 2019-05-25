@@ -1061,6 +1061,9 @@ func startfetch() error {
 	cmd := exec.Command(
 		defines.PKGBIN, "-C", defines.PkgConf, "upgrade", "-F", "-y", "-U",
 	)
+	cmd.Env = append(os.Environ(),
+		"BYPASS_KERNEL=YES", // Fetch everything
+	)
 
 	// Are we doing a full update?
 	if defines.FullUpdateFlag {
